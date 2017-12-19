@@ -1,0 +1,36 @@
+{% extends 'leaderboard/index.html'  %}
+{% block content %}
+
+<table class="table">
+    <thead>
+        <th>
+            S.No
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Score
+        </th>
+    </thead>
+    <tbody>
+        <tr> 
+        {% for everyscore in scores%}
+        <td>
+            {{ everyscore.serialNo }}</td> 
+       <td> 
+            {{ everyscore.name }}
+         </td>
+        <td>
+             {{ everyscore.score }}
+        </td>
+          
+        {% endfor %}
+    </tr>
+
+    </tbody>
+    
+    
+</table>
+
+{% endblock %}
