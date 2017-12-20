@@ -9,7 +9,6 @@ def score_list(request):
     }
     return render(request , 'leaderboard/score_list.html',dataFromModel )
 
-
 def score_detail(request,pk):
     #score = Scorecard.objects.get(sno)
     score_view = get_object_or_404(Scorecard,pk=pk)
@@ -25,8 +24,22 @@ def new_score(request):
             return redirect('score_detail',pk = post.pk )
     else:
         form = Enter_Score()
-        dataFromModel = {
-            'form' : form
-        }
-        return render(request , 'leaderboard/score_new.html' , dataFromModel)
+        return render(request, 'leaderboard/score_new.html', {'form': form})
+
+def score_edit(request,pk):
+    post = get_object_or_404(Scorecard , pk=pk)
+    if request.method == "POST":
+        form = Enter_Score(request.POST , instance = post)
+        if form.is_valid():
+            post = form.save(commit = False)
+            post.save()
+            return redirect('score_detail' , pk = post.pk )
+    else:
+        form = Enter_Score(instance=post)
+        return render(request , 'leaderboard/score_new.html' , {'form':form})
+
+
+def score_delete(request, pk):
+    post = Scorecard.objects.get(serialNo = pk).delete()
+    return redirect('score_list')
 

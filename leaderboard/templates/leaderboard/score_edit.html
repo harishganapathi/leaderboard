@@ -1,0 +1,14 @@
+{% extends 'leaderboard/index.html' %}
+ {% block content %}
+<a class="btn btn-default" href="{% url 'score_edit' pk=post.pk %}">
+    <span class="glyphicon glyphicon-pencil"></span>
+</a>
+
+<h1>
+    {{ score_view.name }}
+</h1>
+<h1>
+    {{ score_view.score }}
+</h1>
+
+{% endblock %}
