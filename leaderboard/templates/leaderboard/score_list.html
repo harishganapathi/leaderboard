@@ -2,42 +2,27 @@
 {% block content %}
 
 <table class="table">
-    <thead>
-        <th>
-            S.No
-        </th>
-        <th>
-            
-            Name
-
-        </th>
-        <th>
-            <a href = "?order_by=score&sort={{ descend }}"> 
-            Score
-         </a>
-        </th>
+    <thead><!-- table heading field-->
+        <th>Roll.No</th>
+        <th> Name</th>
+        <th><a href = "?order_by=score">  Score</a> </th>
     </thead>
     <tbody>
-    
         {% for everyscore in scores%}
         <tr>
         <td>
             {{ everyscore.serialNo }}</td> 
-       <td> 
+        <td> 
            <a href="{% url 'score_detail' pk=everyscore.pk %}">
              {{ everyscore.name }}
             </a> 
-         </td>
+        </td>
         <td>
              {{ everyscore.score }}
-        </td>
-          
+        </td>  
         {% endfor %}
-    </tr>
-
-    </tbody>
-    
-    
+        </tr>
+    </tbody>   
 </table>
 
 {% endblock %}

@@ -1,13 +1,29 @@
 {% extends 'leaderboard/index.html' %} 
 {% block content %}
-<a class="btn btn-default" href="{% url 'score_edit' pk=score_view.pk %}"></a>
-<a class="btn btn-default" href="{% url 'score_delete' pk=score_view.pk %}"></a>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="row">
+                <div class="col-md-1">
+                    <a class="btn btn-success" href="{% url 'score_edit' pk=score_view.pk %}"><!-- edit the existing data from table -->
+                    <span class="glyphicon glyphicon-edit">Edit</span>
+                    </a>
+                </div>
+                <div class=" col-md-9">
+                <h2>Roll no : {{ score_view.pk}}</h2>  <!-- roll number for from primary key -->
+                </div>
+                <div class=" col-md-1">
+                <a class="btn btn-danger" href="{% url 'score_delete' pk=score_view.pk %}">
+                <span class="glyphicon glyphicon-trash">Delete</span><!-- delete the existing data from table -->
+                </a>
+                </div>
+        </div>
+    </div>    
+    <div class="panel-body">
+        <h3>Name : {{ score_view.name }} <br>
+            Score :{{ score_view.score }}
+        </h3>
+    </div>
+</div>
 
-<h1>
-    {{ score_view.name }}
-</h1>
-<h1>
-    {{ score_view.score }}
-</h1>
 
 {% endblock %}

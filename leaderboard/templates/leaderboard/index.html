@@ -1,32 +1,60 @@
 <html>
-    <head>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-    <div class="page-header">
-        <a href="{% url 'new_score' %}" class="top-menu">
-        <span class="glyphicon glyphicon-plus"></span>
-        </a>
-        <h1>
-            <a href="/">Leaderboard</a>
-        </h1>
-    </div>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-                {% block content %}
-
-
-                {% endblock %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">LeaderBoard</a>
             </div>
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">Home</a> <!-- dummy link-->
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="{% url 'new_score' %}" class="top-menu">
+                                <span class="glyphicon glyphicon-plus">New</span> <!-- new post-->
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin">
+                                <span class="glyphicon glyphicon-log-in"></span> Admin</a><!-- Admin panel-->
+                        </li>
+            </ul>
         </div>
-    </div>
+    </nav>
+<h3>
+    Scorecard
+</h3>
+</div>
+<center>
+    <br><br>
+    <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+
+
+                    {% endblock %}
+                </div>
+            </div>
+</center>
 </body>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<footer>
 
+    <center>
+        © &nbsp; Powered by Django &#x2661; 
+    </center>
 
+</footer>
 
 </html>
