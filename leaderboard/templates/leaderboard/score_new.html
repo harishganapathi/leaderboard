@@ -1,0 +1,18 @@
+{% extends 'leaderboard/index.html' %}
+
+{% block content %}
+<h1>
+    New Score
+</h1>
+<form method = "POST" >
+    <div class = "form-group ">
+     {% csrf_token %} 
+     {{ form.as_p }}
+    </div>
+    <button type="submit" class = "btn btn-info" > save</button>
+</form>
+
+
+
+
+{% endblock %}

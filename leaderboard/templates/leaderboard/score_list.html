@@ -7,19 +7,26 @@
             S.No
         </th>
         <th>
+            
             Name
+
         </th>
         <th>
+            
             Score
+        
         </th>
     </thead>
     <tbody>
-        <tr> 
+    
         {% for everyscore in scores%}
+        <tr>
         <td>
             {{ everyscore.serialNo }}</td> 
        <td> 
-            {{ everyscore.name }}
+           <a href="{% url 'score_detail' pk=everyscore.pk %}">
+             {{ everyscore.name }}
+            </a> 
          </td>
         <td>
              {{ everyscore.score }}
