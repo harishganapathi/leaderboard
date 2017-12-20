@@ -3,16 +3,15 @@ from .models import Scorecard
 from .forms import Enter_Score
 # Create your views here.
 def score_list(request):
-    scores = Scorecard.objects.all()
+    order_by = request.GET.get('order_by', 'score')
+    scores = Scorecard.objects.all().order_by(order_by).reverse()
     dataFromModel = {
         'scores':scores
     }
     return render(request , 'leaderboard/score_list.html',dataFromModel )
 
 def score_detail(request,pk):
-    #score = Scorecard.objects.get(sno)
     score_view = get_object_or_404(Scorecard,pk=pk)
-    #score_view = get_object_or_404(Scorecard , serialNo = sno)
     return render(request , 'leaderboard/score_detail.html' , { 'score_view':score_view })
 
 def new_score(request):
