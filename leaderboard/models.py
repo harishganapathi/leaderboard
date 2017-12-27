@@ -13,3 +13,11 @@ class Scorecard(models.Model):
    
     def __str__(self):
         return self.name
+
+
+
+
+#class Signup(models.Model):
+ #   fullName = models.CharField(max_length = 20)
+  #  username = models.CharField(max_length= 25)
+   # password = models.CharField(max_length = 12 , widget = forms.PasswordInput)
