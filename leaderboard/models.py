@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings 
 # Create your models here.
+
+
 class Scorecard(models.Model):
     serialNo = models.AutoField(primary_key = True)
     name = models.CharField(max_length=40)

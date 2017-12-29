@@ -6,6 +6,9 @@ from django.contrib.auth import login,authenticate,logout
 # Create your views here.
 
 
+def request_failed(request):
+    return render(request, 'leaderboard/request_failed.html', {'message': message})
+
 def score_list(request):
     order_by = request.GET.get('order_by', 'score')
     scores = Scorecard.objects.all().order_by(order_by).reverse()
@@ -32,6 +35,7 @@ def new_score(request):
             return redirect('score_detail',pk = post.pk )
     else:
         form = Enter_Score()
+        
         return render(request, 'leaderboard/score_new.html', {'form': form})
 
 
@@ -44,7 +48,9 @@ def score_edit(request,pk):
             post.save()
             return redirect('score_detail' , pk = post.pk )
         else:
-            return redirect('score_detail', pk=post.pk)
+            message = "Sorry,you dont have permission to modify this post"
+            return render(request, 'leaderboard/request_failed.html', {'message': message})
+        
     else:
         form = Enter_Score(instance=post)
         return render(request , 'leaderboard/score_new.html' , {'form':form})
@@ -56,16 +62,21 @@ def score_delete(request, pk):
         post = Scorecard.objects.get(serialNo = pk).delete()
         return redirect('score_list')
     else:
-        return redirect('score_list')
+        message = "Sorry,you dont have permission to modify this post"
+        return render(request, 'leaderboard/request_failed.html', {'message': message})
 
-
+def request_failed(request):
+    message = "Sorry you dont have permission to modify this post"
+    return render(request, 'leaderboard/request_failed.html',{'message':message})
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
+            obj = form.save(commit = False)
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
+            obj = form.save()
             user = authenticate(username = username , password = password)
             login(request,user)
             return redirect('score_list')
@@ -91,3 +102,6 @@ def signin(request):
 def signout(request):
     logout(request)
     return render(request,'leaderboard/signout.html')
+
+
+

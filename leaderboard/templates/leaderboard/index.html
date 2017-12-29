@@ -23,44 +23,46 @@
             </div>
             <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="#">Home</a>
+                            <a href="/">Home</a>
                            
                         </li>
                         
-<li class="active">
 
-    <a href="/signup"> Signup</a>
-
-    <!-- dummy link-->
-</li>
                         
 <li class="active">
-
-    <a href="signout"> Signout</a>
-
+{% if user.is_authenticated %}
+<a href="{% url 'new_score' %}" class="top-menu">
+    <span class="glyphicon glyphicon-plus">New</span>
+    <!-- new post-->
+</a>
+{% endif %}
     <!-- dummy link-->
 </li>
         </ul>
             <ul class="nav navbar-nav navbar-right">
+                        <li>{% if not user.is_authenticated %}
+                            <a href="/signin">
+                                <span class="glyphicon glyphicon-log-in"></span> Signin</a>
+                                {% endif %}
+                        </li>
                         <li>
                              {% if user.is_authenticated %}
-                            <a href="{% url 'new_score' %}" class="top-menu">
-                                <span class="glyphicon glyphicon-plus">New</span> <!-- new post-->
-                            </a>
+                            <a href="/signout">
+                                <span class="glyphicon glyphicon-log-out"></span> Signout</a>
+                            <!-- Admin panel-->
                             {% endif %}
                         </li>
                         <li>
-                            <a href="/signin">
-                                <span class="glyphicon glyphicon-log-in"></span> Signin</a><!-- Admin panel-->
+                             {% if not user.is_authenticated %}
+                            <a href="/signup">
+                                <span class="glyphicon glyphicon-user"></span> Signup</a>
+                            <!-- Admin panel-->
+                            {% endif %}
                         </li>
             </ul>
         </div>
     </nav>
-    <center>
-        <h3>
-            Scorecard
-        </h3>
-    </center>
+
 
 </div>
 <center>
