@@ -9,8 +9,8 @@ urlpatterns = [
     url(r'^score/new$', views.new_score , name = 'new_score'),
     url(r'^score/(?P<pk>\d+)/edit$', views.score_edit, name='score_edit'),
     url(r'^score/(?P<pk>\d+)/delete$', views.score_delete, name='score_delete'),
-    url(r'^signup$' , views.signup ,name='signup'),
-    url(r'^signin$', views.signin, name='signin'),
+    url(r'^.*signup$' , views.signup ,name='signup'),
+    url(r'^.*signin$', views.signin, name='signin'),
     url(r'^.*signout/$', views.signout, name="signout"),
     ]
 
