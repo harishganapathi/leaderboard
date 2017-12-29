@@ -6,8 +6,6 @@ from django.contrib.auth import login,authenticate,logout
 # Create your views here.
 
 
-def request_failed(request):
-    return render(request, 'leaderboard/request_failed.html', {'message': message})
 
 def score_list(request):
     order_by = request.GET.get('order_by', 'score')
@@ -65,9 +63,6 @@ def score_delete(request, pk):
         message = "Sorry,you dont have permission to modify this post"
         return render(request, 'leaderboard/request_failed.html', {'message': message})
 
-def request_failed(request):
-    message = "Sorry you dont have permission to modify this post"
-    return render(request, 'leaderboard/request_failed.html',{'message':message})
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

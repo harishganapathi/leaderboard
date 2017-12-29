@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'^signup$' , views.signup ,name='signup'),
     url(r'^signin$', views.signin, name='signin'),
     url(r'^.*signout/$', views.signout, name="signout"),
-    url(r'^score/(?P<pk>\d+)/edit$', views.request_failed, name='request_failed'),
-]
+    ]
 
 
