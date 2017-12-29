@@ -14,9 +14,11 @@ def score_list(request):
     }
     return render(request , 'leaderboard/score_list.html',dataFromModel)
 
+
 def score_detail(request,pk):
     score_view = get_object_or_404(Scorecard,pk=pk)
     return render(request , 'leaderboard/score_detail.html' , { 'score_view':score_view })
+
 
 def new_score(request):
     if request.method == 'POST':
@@ -25,41 +27,43 @@ def new_score(request):
         print(form)
         if form.is_valid():
             post = form.save(commit = False)
-            print('post')
-            print(post)
-            print('cleaned data')
-            print(form.cleaned_data.get('name'))
+            post.creator = request.user
             post.save()
             return redirect('score_detail',pk = post.pk )
     else:
         form = Enter_Score()
         return render(request, 'leaderboard/score_new.html', {'form': form})
 
+
 def score_edit(request,pk):
     post = get_object_or_404(Scorecard , pk=pk)
     if request.method == "POST":
         form = Enter_Score(request.POST , instance = post)
-        if form.is_valid():
+        if form.is_valid() and request.user == post.creator:
             post = form.save(commit = False)
             post.save()
             return redirect('score_detail' , pk = post.pk )
+        else:
+            return redirect('score_detail', pk=post.pk)
     else:
         form = Enter_Score(instance=post)
         return render(request , 'leaderboard/score_new.html' , {'form':form})
 
+
 def score_delete(request, pk):
-    post = Scorecard.objects.get(serialNo = pk).delete()
-    return redirect('score_list')
+    check = Scorecard.objects.get(serialNo=pk)
+    if check.creator == request.user:
+        post = Scorecard.objects.get(serialNo = pk).delete()
+        return redirect('score_list')
+    else:
+        return redirect('score_list')
+
 
 def signup(request):
     if request.method == 'POST':
-
         form = UserCreationForm(request.POST)
-
         if form.is_valid():
-
             username = form.cleaned_data.get('username')
-         
             password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             user = authenticate(username = username , password = password)
@@ -67,11 +71,10 @@ def signup(request):
             return redirect('score_list')
     else:
         form = UserCreationForm()
-        print(form)
     return render(request , 'leaderboard/signup.html' , { 'form':form })
 
-def signin(request):
 
+def signin(request):
     if request.method == 'POST':
         form = AuthenticationForm(request.POST)
         username = request.POST['username']
@@ -84,8 +87,7 @@ def signin(request):
         form = AuthenticationForm()
     return render(request , 'leaderboard/signin.html' , {'form': form})
 
+
 def signout(request):
-    print('this is called ')
-    print(request.POST)
     logout(request)
     return render(request,'leaderboard/signout.html')
